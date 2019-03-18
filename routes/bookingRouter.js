@@ -12,7 +12,6 @@ router.get('/', async (req, res)=>{
 
 router.get('/search', async (req, res)=>{
     try {
-        console.log(req.query);
         const result = await Booking.find(req.query)
         res.json(result);
     } catch (err) {

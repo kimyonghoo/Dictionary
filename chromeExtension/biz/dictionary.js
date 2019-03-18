@@ -3,7 +3,9 @@ var loadPage = function(){
 }
 
 var lookUpDictionary = function(curPgmNo){
-    if(curPgmNo === undefined) return;
+    if(curPgmNo === undefined) {
+        return;
+    }
     var reqParam = {
         curPgmNo: curPgmNo,
     };

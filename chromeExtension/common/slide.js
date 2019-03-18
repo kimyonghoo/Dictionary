@@ -1,11 +1,5 @@
 var initSlide = function(data){
     var slide = makeSlide();
-    slide.find('.footer').find('button').click(function () {
-        if (slide.is(':visible')) {
-            hideSlide(slide);
-        }
-    });
-
     if (slide.is(':hidden')) {
         showSlide(slide, data);
     } else{
@@ -25,17 +19,37 @@ var makeSlide = function(data){
         $('form').append(html);
     }
     var slide = $('#side-slide');
+    slide.find('.footer').find('button').click(function () {
+        chrome.runtime.sendMessage({
+            "available" : false,
+            "newIconPath" : "common/image/change.png",
+        });
+        hideSlide(slide);
+    });
+
     return slide;
 }
 
 var showSlide = function(slide, data){
-    slide.show('slide', { direction: 'right' }, 'swing', function(){
+    chrome.runtime.sendMessage({
+        "available" : false,
+        "newIconPath" : "common/image/change.png",
+    });
+    slide.show('slide', { direction: 'right' }, 250, function(){
         slide.find('.content').append(setData(data));
+        chrome.runtime.sendMessage({
+            "available" : true,
+            "newIconPath" : "common/image/book.png",
+        });
     });
 }
 
 var hideSlide = function(slide){
-    slide.hide('slide', { direction: 'right' }, 'swing', function () {
+    slide.hide('slide', { direction: 'right'}, 250, function () {
         slide.find('.data').remove();
+        chrome.runtime.sendMessage({
+            "available" : true,
+            "newIconPath" : "common/image/book.png",
+        });
     });
 }
