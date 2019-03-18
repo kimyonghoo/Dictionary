@@ -22,7 +22,7 @@ var makeSlide = function(data){
     slide.find('.footer').find('button').click(function () {
         chrome.runtime.sendMessage({
             "available" : false,
-            "newIconPath" : "common/image/change.png",
+            "newIconPath" : "common/image/book_disable.png",
         });
         hideSlide(slide);
     });
@@ -33,7 +33,7 @@ var makeSlide = function(data){
 var showSlide = function(slide, data){
     chrome.runtime.sendMessage({
         "available" : false,
-        "newIconPath" : "common/image/change.png",
+        "newIconPath" : "common/image/book_disable.png",
     });
     slide.show('slide', { direction: 'right' }, 250, function(){
         slide.find('.content').append(setData(data));
