@@ -36,18 +36,19 @@ chrome.browserAction.onClicked.addListener(function(tab) {
       { file: "biz/dictionary.js" },
       { code: "loadPage()" }
   ]).then(() => {
-    console.log('Script loading sucessfully')
+    console.log('Script loading sucessfully');
   })
 });
 
-
-var contextMenuItem = {
-  "id": "hi",
-  "title":"hi",
-  "contexts": ["editable"]
-};
-
-chrome.contextMenus.create(contextMenuItem);
-chrome.contextMenus.onClicked.addListener(function callback(a,b,c){
-  debugger;
-});
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if(request.available === false) {
+      chrome.browserAction.disable();
+    } else {
+      chrome.browserAction.enable();
+    }
+    chrome.browserAction.setIcon({
+        path: request.newIconPath,
+        tabId: sender.tab.id
+    });
+  });
