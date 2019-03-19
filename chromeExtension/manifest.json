@@ -2,7 +2,7 @@
     "name": "Cyberlogitec Dictionary",
     "description": "Search booking number according to POD, POL, POR, DEL",
     "version": "0.0.1",
-    "permissions": ["tabs", "http://localhost:3030/*", "contextMenus"],
+    "permissions": ["tabs", "contextMenus", "http://localhost:3030/*"],
     "background": {
       "scripts": ["background.js"],
       "persistent": false

@@ -18,20 +18,20 @@ var lookUpDictionary = function(curPgmNo){
     });
 }
 
-var getBookingNumber = function(data){
-    var formIdSet = data[0];
+var getBookingNumber = function(elementSet){
+    var formIdSet = elementSet[0];
     var reqParam = {};
 
-    var polCd = formIdSet.POL_ID !== '' ? $('#'+formIdSet.POL_ID).val() : "";
-    var podCd = formIdSet.POD_ID !== '' ? $('#'+formIdSet.POD_ID).val() : "";
-    var porCd = formIdSet.POR_ID !== '' ? $('#'+formIdSet.POR_ID).val() : "";
-    var delCd = formIdSet.DEL_ID !== '' ? $('#'+formIdSet.DEL_ID).val() : "";
+    var polCd = formIdSet.POL_ID !== '' ? getFormValue(formIdSet.POL_ID) : "";
+    var podCd = formIdSet.POD_ID !== '' ? getFormValue(formIdSet.POD_ID) : "";
+    var porCd = formIdSet.POR_ID !== '' ? getFormValue(formIdSet.POR_ID) : "";
+    var delCd = formIdSet.DEL_ID !== '' ? getFormValue(formIdSet.DEL_ID) : "";
 
     if(polCd !== '') reqParam.POL_CD = polCd;
     if(podCd !== '') reqParam.POD_CD = podCd;
     if(porCd !== '') reqParam.POR_CD = porCd;
     if(delCd !== '') reqParam.DEL_CD = delCd;
-
+    
     ajaxCall({
         url: "http://localhost:3030/booking/search",
         type: 'GET',
@@ -53,3 +53,24 @@ var setData = function(data){
     }
     return dataTag;
 }
+
+var getFormValue = function (id){
+    var value = '';
+    
+    if($('#'+id).length > 0){
+        value = $('#'+id).val();
+    } else{
+        value = $('iframe:visible').contents().find('input[name='+id+']').val();
+    }
+    return value;
+}
+/*
+var getReqParams = function(elementSet){
+    var reqParams = {};
+
+    for(key in elementSet){
+        var reqParam = elementSet[key] !== '' ? getFormValue(elementSet[key]) : "";
+        if(reqParam !== '') reqParams[key] = reqParam;
+    }
+    return reqParams;
+}*/

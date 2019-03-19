@@ -12,7 +12,7 @@ router.get('/', async (req, res)=>{
 
 router.get('/search', async (req, res)=>{
     try {
-        const result = await Booking.find(req.query)
+        const result = await Booking.find(req.query , {"_id": false});
         res.json(result);
     } catch (err) {
         res.send(err);

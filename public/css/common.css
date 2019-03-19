@@ -10,6 +10,8 @@ html, body, form {
     width: 250px;
     height: 320px;
     background-color: #c1046b;
+    z-index: 999;
+    overflow: auto;
 }
 
 #side-slide > div.content > div.data {

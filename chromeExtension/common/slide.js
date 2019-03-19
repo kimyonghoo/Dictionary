@@ -35,7 +35,7 @@ var showSlide = function(slide, data){
         "available" : false,
         "newIconPath" : "common/image/book_disable.png",
     });
-    slide.show('slide', { direction: 'right' }, 250, function(){
+    slide.show('slide', { direction: 'right' }, 220, function(){
         slide.find('.content').append(setData(data));
         chrome.runtime.sendMessage({
             "available" : true,
@@ -45,7 +45,7 @@ var showSlide = function(slide, data){
 }
 
 var hideSlide = function(slide){
-    slide.hide('slide', { direction: 'right'}, 250, function () {
+    slide.hide('slide', { direction: 'right'}, 220, function () {
         slide.find('.data').remove();
         chrome.runtime.sendMessage({
             "available" : true,
