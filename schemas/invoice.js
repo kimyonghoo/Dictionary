@@ -6,10 +6,6 @@ const invoiceSchema = new Schema({
         type: String,
         required: true,
     },
-    VVD: {
-        type: String,
-        required: true,
-    },
 }, {collection: 'invoice' });
 
 module.exports = mongoose.model('Invoice', invoiceSchema);

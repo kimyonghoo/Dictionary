@@ -4,7 +4,7 @@ var ajaxCall = function(ajaxObj){
         type: ajaxObj.type,
         data: ajaxObj.req,
         success:function(data){
-            ajaxObj.callBack(data, ajaxObj.bizCode);
+            ajaxObj.callBack(data, ajaxObj.dicType);
         },
         error:function(jqXHR, textStatus, errorThrown){
             alert("[ERROR] \n" + textStatus + " : " + errorThrown);

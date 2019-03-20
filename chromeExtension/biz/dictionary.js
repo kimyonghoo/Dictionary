@@ -18,10 +18,10 @@ var getElementSetByPgmNo = function(curPgmNo){
     });
 }
 
-var lookUpData = function(elementSet){
-    var formIdSet = elementSet[0];
+var lookUpData = function(data){
+    var formIdSet = data[0].FORM_ID;
+    var dictionaryType = data[0].DICTIONARY_TYPE;
     var reqParam = {};
-    var dictionaryType = formIdSet.DICTIONARY_TYPE;
 
     switch (dictionaryType) {
         case "BKG":
@@ -39,7 +39,7 @@ var lookUpData = function(elementSet){
                 url: 'http://localhost:3030/booking/search',
                 type: 'GET',
                 req: reqParam,
-                bizCode: 'BKG',
+                dicType: dictionaryType,
                 callBack: initSlide
             }); 
             break;
@@ -50,7 +50,7 @@ var lookUpData = function(elementSet){
                 url: 'http://localhost:3030/invoice/search',
                 type: 'GET',
                 req: reqParam,
-                bizCode: 'INV',
+                dicType: dictionaryType,
                 callBack: initSlide
             }); 
             break;
