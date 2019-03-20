@@ -31,7 +31,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   executeScripts(null, [
       { file: "common/jquery-3.3.1.min.js" }, 
       { file: "common/jquery-ui.min.js" },
-      { file: "common/commonAjax.js" },
+      { file: "common/commonUtils.js" },
       { file: "common/slide.js" },
       { file: "biz/dictionary.js" },
       { code: "loadPage()" }
