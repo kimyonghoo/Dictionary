@@ -1,10 +1,10 @@
-var initSlide = function(data){
+var initSlide = function(data, dictionaryType){
     var slide = makeSlide();
     if (slide.is(':hidden')) {
-        showSlide(slide, data);
+        showSlide(slide, data, dictionaryType);
     } else{
         hideSlide(slide);
-        showSlide(slide, data);
+        showSlide(slide, data, dictionaryType);
     }
 }
 
@@ -30,13 +30,13 @@ var makeSlide = function(data){
     return slide;
 }
 
-var showSlide = function(slide, data){
+var showSlide = function(slide, data, dictionaryType){
     chrome.runtime.sendMessage({
         "available" : false,
         "newIconPath" : "common/image/book_disable.png",
     });
     slide.show('slide', { direction: 'right' }, 220, function(){
-        slide.find('.content').append(setData(data));
+        slide.find('.content').append(setData(data, dictionaryType));
         chrome.runtime.sendMessage({
             "available" : true,
             "newIconPath" : "common/image/book.png",

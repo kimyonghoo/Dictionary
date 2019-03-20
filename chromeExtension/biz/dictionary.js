@@ -1,76 +1,99 @@
 var loadPage = function(){
-    lookUpDictionary($('#curPgmNo').val());
+    var  pgmNo= getPgmNo();
+    if(pgmNo === undefined || pgmNo === '') return false;
+    
+    getElementSetByPgmNo(pgmNo);
 }
 
-var lookUpDictionary = function(curPgmNo){
-    if(curPgmNo === undefined) {
-        return;
-    }
+var getElementSetByPgmNo = function(curPgmNo){
     var reqParam = {
         curPgmNo: curPgmNo,
     };
 
     ajaxCall({
-        url: "http://localhost:3030/mapping/search",
+        url: 'http://localhost:3030/mapping/search',
         type: 'GET',
         req: reqParam,
-        callBack: getBookingNumber
+        callBack: lookUpData
     });
 }
 
-var getBookingNumber = function(elementSet){
+var lookUpData = function(elementSet){
     var formIdSet = elementSet[0];
     var reqParam = {};
+    var dictionaryType = formIdSet.DICTIONARY_TYPE;
 
-    var polCd = formIdSet.POL_ID !== '' ? getFormValue(formIdSet.POL_ID) : "";
-    var podCd = formIdSet.POD_ID !== '' ? getFormValue(formIdSet.POD_ID) : "";
-    var porCd = formIdSet.POR_ID !== '' ? getFormValue(formIdSet.POR_ID) : "";
-    var delCd = formIdSet.DEL_ID !== '' ? getFormValue(formIdSet.DEL_ID) : "";
-
-    if(polCd !== '') reqParam.POL_CD = polCd;
-    if(podCd !== '') reqParam.POD_CD = podCd;
-    if(porCd !== '') reqParam.POR_CD = porCd;
-    if(delCd !== '') reqParam.DEL_CD = delCd;
-    
-    ajaxCall({
-        url: "http://localhost:3030/booking/search",
-        type: 'GET',
-        req: reqParam,
-        callBack: initSlide
-    }); 
+    switch (dictionaryType) {
+        case "BKG":
+            var polCd = formIdSet.POL_ID !== '' ? getElementValue(formIdSet.POL_ID) : '';
+            var podCd = formIdSet.POD_ID !== '' ? getElementValue(formIdSet.POD_ID) : '';
+            var porCd = formIdSet.POR_ID !== '' ? getElementValue(formIdSet.POR_ID) : '';
+            var delCd = formIdSet.DEL_ID !== '' ? getElementValue(formIdSet.DEL_ID) : '';
+        
+            if(polCd !== '') reqParam.POL_CD = polCd;
+            if(podCd !== '') reqParam.POD_CD = podCd;
+            if(porCd !== '') reqParam.POR_CD = porCd;
+            if(delCd !== '') reqParam.DEL_CD = delCd;
+            
+            ajaxCall({
+                url: 'http://localhost:3030/booking/search',
+                type: 'GET',
+                req: reqParam,
+                bizCode: 'BKG',
+                callBack: initSlide
+            }); 
+            break;
+        case "INV":
+            var vvd = formIdSet.VVD !== '' ? getElementValue(formIdSet.VVD) : '';
+            if(vvd !== '') reqParam.VVD = vvd;
+            ajaxCall({
+                url: 'http://localhost:3030/invoice/search',
+                type: 'GET',
+                req: reqParam,
+                bizCode: 'INV',
+                callBack: initSlide
+            }); 
+            break;
+        default:
+            alert('Please define dictionary type');
+            break;
+    }
 }
 
-var setData = function(data){
+var setData = function(data, dictionaryType){
     var dataTag = '';
+    
     if(data.length === 0) {
         dataTag+='<div class="data"><p>There is no search data</p></div>';
     } else {
         dataTag += '<div class="data">';
-        data.forEach(element => {
-            dataTag+='<p>' + element.BKG_NO + '</p>';
-        });
+        switch (dictionaryType) {
+            case 'BKG':
+                data.forEach(element => {
+                    dataTag+='<p>' + element.BKG_NO + '</p>';
+                });
+                break;
+            case 'INV':
+                data.forEach(element => {
+                    dataTag+='<p>' + element.INV_NO + '</p>';
+                });
+                break;
+            default:
+                break;
+        }
         dataTag += '</div>';
     }
     return dataTag;
 }
 
-var getFormValue = function (id){
-    var value = '';
-    
-    if($('#'+id).length > 0){
-        value = $('#'+id).val();
-    } else{
-        value = $('iframe:visible').contents().find('input[name='+id+']').val();
+var getPgmNo = function(){
+    switch ($('#curPgmNo').val()) {
+        case 'ESM_BKG_0079':
+            pgmNo = $('iframe:visible').contents().find('input[name=ui_id]').val();
+            break;
+        default:
+            pgmNo = $('#curPgmNo').val();
+            break;
     }
-    return value;
+    return pgmNo;
 }
-/*
-var getReqParams = function(elementSet){
-    var reqParams = {};
-
-    for(key in elementSet){
-        var reqParam = elementSet[key] !== '' ? getFormValue(elementSet[key]) : "";
-        if(reqParam !== '') reqParams[key] = reqParam;
-    }
-    return reqParams;
-}*/
