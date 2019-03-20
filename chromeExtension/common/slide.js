@@ -46,7 +46,7 @@ var showSlide = function(slide, data, dictionaryType){
 
 var hideSlide = function(slide){
     slide.hide('slide', { direction: 'right'}, 220, function () {
-        slide.find('.data').remove();
+        slide.prop("style", "display: none;").find('.data').remove();
         chrome.runtime.sendMessage({
             "available" : true,
             "newIconPath" : "common/image/book.png",

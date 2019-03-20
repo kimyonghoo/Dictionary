@@ -1,14 +1,10 @@
-html, body, form {
-    display: block;
-}
-
 #side-slide {
     display: none;
-    position: absolute;
-    top: 10px;
+    position: fixed;
+    top: 35px;
     right: 10px;
     width: 250px;
-    height: 320px;
+    height: calc(100% - 45px);
     background-color: #c1046b;
     z-index: 999;
     overflow: auto;
