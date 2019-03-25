@@ -5,33 +5,36 @@
     right: 10px;
     width: 250px;
     height: calc(100% - 45px);
-    background-color: #c1046b;
+    background-color: rgba(255,255,255,0.9);
+    border: 1px solid darkgray;
+    border-radius: 2px;
     z-index: 999;
     overflow: auto;
 }
 
 #side-slide > div.content > div.data {
-    color: white;
+    color: black;
     text-align: center;
     font-weight: bold;
     font-size: 20px;
 }
 
 #side-slide > div.footer {
-    align-items: center;
+    text-align: center;
     width: 100%;
     position: absolute;
-    bottom: 0;
+    bottom: 4px;
 }
 
 #side-slide > div.footer > button{
     width: 100px;
-    background-color: white;
+    background-color: #74aee5;
     border: none;
-    color: black;
-    padding: 15px 0;
+    color: #fff;
+    padding: 3px 11px 5px;
     text-align: center;
-    font-size: 15px;
-    margin: 4px;
+    font-size: 12px;
+    margin: 0 auto;
     cursor: pointer;
+    border-radius: 2px;
 }
