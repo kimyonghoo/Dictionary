@@ -13,16 +13,32 @@ var ajaxCall = function(ajaxObj){
 }
 
 var getElementValue = function(id){
-    var value = '';
-
-    if($('#'+id).length > 0){
-        value = $('#'+id).val();
-    } else if($('form').contents().find('input[name='+ id +']').length > 0){
-        value = $('form').contents().find('input[name=vvd]').val();
+    var targetObj = null;
+    if($('.opus_design_tab').length > 0){
+        targetObj = $('iframe:visible').contents().find('#'+id + ',[name='+id+']');
     } else {
-        value = $('iframe:visible').contents().find('input[name='+id+']').val();
+        targetObj = $('#'+id + ',[name='+id+']');
     }
-    return value;
+    switch (targetObj[0].type) {
+        case 'text':
+            val = targetObj[0].value;
+            break;
+        case 'radio':
+            val = targetObj.filter(':checked')[0].value;
+            break;
+        default:
+            break;
+    }
+    return val;
+}
+
+var includeCss = function(){
+    var head = document.getElementsByTagName('head')[0];
+    var style = document.createElement('link');
+    style.href = 'http://localhost:3030/static/css/common.css';
+    style.type = 'text/css';
+    style.rel = 'stylesheet';
+    head.append(style);
 }
 /*
 var getReqParams = function(elementSet){
