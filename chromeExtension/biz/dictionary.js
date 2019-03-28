@@ -17,7 +17,6 @@ var loadPage = function(){
     10. Check Booking status
     11. Other button explanation`;
 
-
     var data2 = `Special Cargo: Tick if applicable. Also break-down
     Container Q'ty per cargo type in the "Rate Q'ty Detail"`;
 
@@ -129,24 +128,26 @@ var getPgmNo = function(){
 
 var showTooltip = function () {
     $('body').append('<span class="tooltip"></span>');
-    var tooltip = $('.tooltip');
-    var iframeOffsetTop = this.ownerDocument !== document ? 96 : 0; // check if element is inside iframe
-
     var el = $(this),
+        tooltip = $('.tooltip');
+    
+    tooltip
+        .html(el.attr('data-tooltip').replace(/[\n\r]/g, '<br/>'));
+
+    var iframeOffsetTop = this.ownerDocument !== document ? 96 : 0, // check if element is inside iframe
         pos = el.offset(),
         w = el.outerWidth(),
-        newtop = pos.top + tooltip.outerHeight() + iframeOffsetTop,
+        newtop = pos.top + el.outerHeight() + iframeOffsetTop,
         newleft = pos.left + (w/2) - (tooltip.outerWidth()/2);
 
     tooltip
-        .html(el.attr('data-tooltip'))
         .css({
-            'left': newleft,
+            'left': newleft < 0 ? 0 : newleft,
             'top':  newtop
         })
         .show();
 }
 
 var hideTooltip = function () {
-    //$('.tooltip').remove();
+    $('.tooltip').remove();
 }
