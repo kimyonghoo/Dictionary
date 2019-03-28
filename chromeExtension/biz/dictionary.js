@@ -3,6 +3,15 @@ var loadPage = function(){
     if(pgmNo === undefined || pgmNo === '') return false;
     includeCss();
     getElementSetByPgmNo(pgmNo);
+
+    $('#tabTabDIV_tab1_0')
+        .attr('data-tooltip', 'tooltip 1')
+        .mouseover(showTooltip)
+        .mouseout(hideTooltip);
+    $('iframe:visible').contents().find('#btn_t1Awkward')
+        .attr('data-tooltip', 'tooltip 2')
+        .mouseover(showTooltip)
+        .mouseout(hideTooltip);
 }
 
 var getElementSetByPgmNo = function(curPgmNo){
@@ -99,4 +108,28 @@ var getPgmNo = function(){
             break;
     }
     return pgmNo;
+}
+
+var showTooltip = function () {
+    $('body').append('<span class="tooltip"></span>');
+    var tooltip = $('.tooltip');
+    var iframeOffsetTop = this.ownerDocument !== document ? 96 : 0; // check if element is inside iframe
+
+    var el = $(this),
+        pos = el.offset(),
+        w = el.outerWidth(),
+        newtop = pos.top + tooltip.outerHeight() + iframeOffsetTop,
+        newleft = pos.left + (w/2) - (tooltip.outerWidth()/2);
+
+    tooltip
+        .html(el.attr('data-tooltip'))
+        .css({
+            'left': newleft,
+            'top':  newtop
+        })
+        .show();
+}
+
+var hideTooltip = function () {
+    $('.tooltip').remove();
 }
