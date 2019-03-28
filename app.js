@@ -7,6 +7,7 @@ const screenRouter = require('./routes/screenRouter');
 const mappingRouter = require('./routes/mappingRouter');
 const bookingRouter = require('./routes/bookingRouter');
 const invoiceRouter = require('./routes/invoiceRouter');
+const helpGuideRouter = require('./routes/helpGuideRouter');
 
 const connect = require('./schemas'); // 파일명이 index.js 면 /index 생략 가능하다.
 require('dotenv').config();
@@ -31,6 +32,7 @@ app.use('/screen', screenRouter);
 app.use('/mapping', mappingRouter);
 app.use('/booking', bookingRouter);
 app.use('/invoice', invoiceRouter);
+app.use('/help', helpGuideRouter);
 
 /*
  * send errors - can not found routers

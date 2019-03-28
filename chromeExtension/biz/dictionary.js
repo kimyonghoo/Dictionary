@@ -3,31 +3,6 @@ var loadPage = function(){
     if(pgmNo === undefined || pgmNo === '') return false;
     includeCss();
     getElementSetByPgmNo(pgmNo);
-
-    var data1 = `Process
-    1.  Select Booking Master Creation Screen.
-    2.  Enter Route details and Receive and Delivery terms
-    3.  Enter Shipper, Rate source and Commodity detals
-    4.  Enter Container Type/Size and volumn details
-    5.  Enter estimated Cargo weight details and specify any Special Cargo/Requirements
-    6.  Input Sailing details and inquire on Empty Container Pick Up
-    7.  Manage Contact details, inquire Svc Mode and input Customer References
-    8.  Inquire/add/adjust Customer/Vendor/Internal Remarks
-    9.  Save the Booking to assign Booking and B/L number
-    10. Check Booking status
-    11. Other button explanation`;
-
-    var data2 = `Special Cargo: Tick if applicable. Also break-down
-    Container Q'ty per cargo type in the "Rate Q'ty Detail"`;
-
-    $('#tabTabDIV_tab1_0')
-        .attr('data-tooltip', data1)
-        .mouseover(showTooltip)
-        .mouseout(hideTooltip);
-    $('iframe:visible').contents().find('#btn_t1Awkward')
-        .attr('data-tooltip', data2)
-        .mouseover(showTooltip)
-        .mouseout(hideTooltip);
 }
 
 var getElementSetByPgmNo = function(curPgmNo){
@@ -124,30 +99,4 @@ var getPgmNo = function(){
             break;
     }
     return pgmNo;
-}
-
-var showTooltip = function () {
-    $('body').append('<span class="tooltip"></span>');
-    var el = $(this),
-        tooltip = $('.tooltip');
-    
-    tooltip
-        .html(el.attr('data-tooltip').replace(/[\n\r]/g, '<br/>'));
-
-    var iframeOffsetTop = this.ownerDocument !== document ? 96 : 0, // check if element is inside iframe
-        pos = el.offset(),
-        w = el.outerWidth(),
-        newtop = pos.top + el.outerHeight() + iframeOffsetTop,
-        newleft = pos.left + (w/2) - (tooltip.outerWidth()/2);
-
-    tooltip
-        .css({
-            'left': newleft < 0 ? 0 : newleft,
-            'top':  newtop
-        })
-        .show();
-}
-
-var hideTooltip = function () {
-    $('.tooltip').remove();
 }
