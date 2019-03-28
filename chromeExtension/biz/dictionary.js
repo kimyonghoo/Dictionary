@@ -4,12 +4,29 @@ var loadPage = function(){
     includeCss();
     getElementSetByPgmNo(pgmNo);
 
+    var data1 = `Process
+    1.  Select Booking Master Creation Screen.
+    2.  Enter Route details and Receive and Delivery terms
+    3.  Enter Shipper, Rate source and Commodity detals
+    4.  Enter Container Type/Size and volumn details
+    5.  Enter estimated Cargo weight details and specify any Special Cargo/Requirements
+    6.  Input Sailing details and inquire on Empty Container Pick Up
+    7.  Manage Contact details, inquire Svc Mode and input Customer References
+    8.  Inquire/add/adjust Customer/Vendor/Internal Remarks
+    9.  Save the Booking to assign Booking and B/L number
+    10. Check Booking status
+    11. Other button explanation`;
+
+
+    var data2 = `Special Cargo: Tick if applicable. Also break-down
+    Container Q'ty per cargo type in the "Rate Q'ty Detail"`;
+
     $('#tabTabDIV_tab1_0')
-        .attr('data-tooltip', 'tooltip 1')
+        .attr('data-tooltip', data1)
         .mouseover(showTooltip)
         .mouseout(hideTooltip);
     $('iframe:visible').contents().find('#btn_t1Awkward')
-        .attr('data-tooltip', 'tooltip 2')
+        .attr('data-tooltip', data2)
         .mouseover(showTooltip)
         .mouseout(hideTooltip);
 }
@@ -131,5 +148,5 @@ var showTooltip = function () {
 }
 
 var hideTooltip = function () {
-    $('.tooltip').remove();
+    //$('.tooltip').remove();
 }
