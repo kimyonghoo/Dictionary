@@ -49,3 +49,28 @@
   position: absolute;
   z-index: 100;
 }
+
+.btn-close-float {
+    background-color: #b9b9b9;
+    color: white;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    position: fixed;
+    right: 3em;
+    bottom: 3em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-close-float:hover {
+    background-color: #388bd9;
+    color: white;
+}
+
+.btn-close-float > span:before {
+    content: 'x';
+    vertical-align: middle;
+    font-size: 30px;
+    font-weight: bold;
+}

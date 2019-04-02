@@ -28,9 +28,17 @@ var getHelpGuide = function(curPgmNo){
 
 var setHelpGuide = function(data){
     if(data[0].GUIDE.length === 0) return;
+    $('body').append('<div class="btn-close-float"><span></span></div>');
+
     data[0].GUIDE.forEach(element => {
-        debugger;
         setTooltip(element.FORM_ID, element.DESCRIPTION);
-        setHighlight(element.FORM_ID, 'yellow');
+        $('.btn-close-float').click(function() {
+            this.remove();
+            removeTooltip(element.FORM_ID);
+        });
+    });
+
+    $('.btn-close-float').click(function() {
+        this.remove();
     });
 }
