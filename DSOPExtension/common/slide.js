@@ -1,4 +1,4 @@
-var initSlide = function(data, dictionaryType){
+var initSlide = (data, dictionaryType) => {
     var slide = makeSlide();
     if (slide.is(':hidden')) {
         showSlide(slide, data, dictionaryType);
@@ -8,7 +8,7 @@ var initSlide = function(data, dictionaryType){
     }
 }
 
-var makeSlide = function(data){
+var makeSlide = (data) => {
     if($('#side-slide').length === 0) {
         var html = '<div id="side-slide">'
         + '<div class="content"></div>'
@@ -19,7 +19,7 @@ var makeSlide = function(data){
         $('form').append(html);
     }
     var slide = $('#side-slide');
-    slide.find('.footer').find('button').click(function () {
+    slide.find('.footer').find('button').click(() => {
         chrome.runtime.sendMessage({
             "available" : false,
             "newIconPath" : "common/image/book_disable.png",
@@ -30,12 +30,12 @@ var makeSlide = function(data){
     return slide;
 }
 
-var showSlide = function(slide, data, dictionaryType){
+var showSlide = (slide, data, dictionaryType) => {
     chrome.runtime.sendMessage({
         "available" : false,
         "newIconPath" : "common/image/book_disable.png",
     });
-    slide.show('slide', { direction: 'right' }, 220, function(){
+    slide.show('slide', { direction: 'right' }, 220, () => {
         slide.find('.content').append(setData(data, dictionaryType));
         chrome.runtime.sendMessage({
             "available" : true,
@@ -44,7 +44,7 @@ var showSlide = function(slide, data, dictionaryType){
     });
 }
 
-var hideSlide = function(slide){
+var hideSlide = (slide) => {
     slide.hide('slide', { direction: 'right'}, 220, function () {
         slide.prop("style", "display: none;").find('.data').remove();
         chrome.runtime.sendMessage({

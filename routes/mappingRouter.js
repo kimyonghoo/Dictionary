@@ -12,7 +12,7 @@ router.get('/', async (req, res)=>{
 
 router.get('/search', async (req, res)=>{
     try {
-        const result = await Mapping.find({PGM_NO: req.query.curPgmNo}, {"_id": false, "PGM_NO": false});
+        const result = await Mapping.find({PGM_NO: req.query.pgmNo}, {"_id": false, "PGM_NO": false});
         res.json(result);
     } catch (err) {
         res.send(err);

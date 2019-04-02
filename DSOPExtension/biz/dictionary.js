@@ -1,27 +1,21 @@
-var loadPage = function(){
-    var  pgmNo= getPgmNo();
+var loadPage = () => {
+    var pgmNo = getPgmNo();
     if(pgmNo === undefined || pgmNo === '') return false;
     includeCss();
-    getElementSetByPgmNo(pgmNo);
+    initExtension(pgmNo);
 }
 
-var getElementSetByPgmNo = function(curPgmNo){
-    var reqParam = {
-        curPgmNo: curPgmNo,
-    };
-
-    ajaxCall({
-        url: 'http://localhost:3030/mapping/search',
-        type: 'GET',
-        req: reqParam,
-        callBack: lookUpData
-    });
+var initExtension = async (pgmNo) => {
+    var mappingResult = await ajaxCall('http://localhost:3030/mapping/search', 'GET', {pgmNo: pgmNo});
+    var dsopResult = await lookUpData(mappingResult);
+    initSlide(dsopResult, mappingResult[0].DICTIONARY_TYPE);
 }
 
-var lookUpData = function(data){
+var lookUpData = (data) => {
     var formIdSet = data[0].FORM_ID;
     var dictionaryType = data[0].DICTIONARY_TYPE;
     var reqParam = {};
+    var url = '';
 
     switch (dictionaryType) {
         case "BKG":
@@ -36,34 +30,25 @@ var lookUpData = function(data){
             reqParam.DEL_CD = getElementValue(formIdSet.BKG_DEL_CD);
             reqParam.TAA_RFA_FLAG = getElementValue(formIdSet.TAA_RFA_FLG);
             reqParam.RFA_NO = getElementValue(formIdSet.RFA_NO);
-
-            ajaxCall({
-                url: 'http://localhost:3030/booking/search',
-                type: 'GET',
-                req: reqParam,
-                dicType: dictionaryType,
-                callBack: initSlide
-            }); 
+            
+            url = 'http://localhost:3030/booking/search';
             break;
         case "INV":
             var vvd = getElementValue(formIdSet.VVD);
             reqParam.VVD = vvd;
-            
-            ajaxCall({
-                url: 'http://localhost:3030/invoice/search',
-                type: 'GET',
-                req: reqParam,
-                dicType: dictionaryType,
-                callBack: initSlide
-            }); 
+
+            url = 'http://localhost:3030/invoice/search';
             break;
         default:
             alert('Please define dictionary type');
+            return;
             break;
     }
+
+    return ajaxCall(url, 'GET', reqParam);
 }
 
-var setData = function(data, dictionaryType){
+var setData = (data, dictionaryType) => {
     var dataTag = '';
     
     if(data.length === 0) {
@@ -89,7 +74,7 @@ var setData = function(data, dictionaryType){
     return dataTag;
 }
 
-var getPgmNo = function(){
+var getPgmNo = () => {
     switch ($('#curPgmNo').val()) {
         case 'ESM_BKG_0079':
             pgmNo = $('iframe:visible').contents().find('input[name=ui_id]').val();

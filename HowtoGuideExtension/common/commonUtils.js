@@ -1,18 +1,15 @@
-var ajaxCall = function(ajaxObj){
-    $.ajax({
-        url: ajaxObj.url,
-        type: ajaxObj.type,
-        data: ajaxObj.req,
-        success:function(data){
-            ajaxObj.callBack(data, ajaxObj.dicType);
-        },
+var ajaxCall = (url, type, req) => {
+    return $.ajax({
+        url: url,
+        type: type,
+        data: req,
         error:function(jqXHR, textStatus, errorThrown){
             alert("[ERROR] \n" + textStatus + " : " + errorThrown);
         }
     }); 
 }
 
-var includeCss = function(){
+var includeCss = () => {
     var head = document.getElementsByTagName('head')[0];
     var style = document.createElement('link');
     style.href = 'http://localhost:3030/static/css/common.css';

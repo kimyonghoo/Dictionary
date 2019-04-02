@@ -1,4 +1,4 @@
-var showTooltip = function () {
+var showTooltip = () => {
     $('body').append('<span class="tooltip"></span>');
     var el = $(this),
         tooltip = $('.tooltip');
@@ -20,11 +20,11 @@ var showTooltip = function () {
         .show();
 }
 
-var hideTooltip = function () {
+var hideTooltip = () => {
     $('.tooltip').remove();
 }
 
-var setTooltip = function(id, desc){
+var setTooltip = (id, desc) => {
     var targetObj = $('#'+id + ',[name='+id+']');
     if(targetObj.length ===0) targetObj = $('iframe:visible').contents().find('#'+id + ',[name='+id+']');
     //targetObj.addClass('help-guide');
@@ -37,7 +37,7 @@ var setTooltip = function(id, desc){
     targetObj.css('background-color', 'yellow');
 }
 
-var removeTooltip = function(id){
+var removeTooltip = (id) => {
     var targetObj = $('#'+id + ',[name='+id+']');
     if(targetObj.length ===0) targetObj = $('iframe:visible').contents().find('#'+id + ',[name='+id+']');
     //targetObj.removeClass('help-guide');
